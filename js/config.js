@@ -4,9 +4,9 @@ window.VITA_CONFIG = {
   branch: "main",
 
   /**
-   * Vercel (or other) deployment URL for the OAuth API — no trailing slash.
-   * Example: "https://vita-api.vercel.app"
-   * Leave null for local dev with `vercel dev` (uses same origin).
+   * Vercel deployment URL for the OAuth API — no trailing slash.
+   * Must NOT be your GitHub Pages URL. Example: "https://vita-api.vercel.app"
+   * Leave null until deployed; Start Codespace works without this.
    */
   apiBase: null,
 };
