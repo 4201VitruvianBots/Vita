@@ -1,0 +1,225 @@
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-hover: #79b8ff;
+  --success: #3fb950;
+  --warning: #d29922;
+  --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "Cascadia Code", "Fira Code", Consolas, monospace;
+  --radius: 12px;
+  --shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(88, 166, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 166, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
+  pointer-events: none;
+}
+
+.shell {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 3rem;
+}
+
+header {
+  margin-bottom: 2.5rem;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.25);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: 1.125rem;
+  color: var(--muted);
+  margin: 0;
+  max-width: 52ch;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0d1117;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--muted);
+}
+
+.status {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  min-height: 2.75rem;
+}
+
+.status[data-state="loading"] {
+  color: var(--accent);
+  border-color: rgba(88, 166, 255, 0.35);
+}
+
+.status[data-state="ready"] {
+  color: var(--success);
+  border-color: rgba(63, 185, 80, 0.35);
+}
+
+.status[data-state="error"] {
+  color: var(--warning);
+  border-color: rgba(210, 153, 34, 0.35);
+}
+
+.alt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.alt-actions .btn {
+  flex: 1 1 auto;
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem;
+}
+
+footer {
+  margin-top: 2.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 520px) {
+  .actions-row {
+    flex-direction: row;
+  }
+
+  .alt-actions .btn {
+    flex: 1;
+  }
+}
