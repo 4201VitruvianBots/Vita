@@ -1,0 +1,12 @@
+[
+  {
+    "key": "ctrl+shift+i",
+    "command": "vscode.open",
+    "args": "${workspaceFolder}/docs/Index.md"
+  },
+  {
+    "key": "cmd+shift+i",
+    "command": "vscode.open",
+    "args": "${workspaceFolder}/docs/Index.md"
+  }
+]

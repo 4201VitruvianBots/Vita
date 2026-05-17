@@ -6,6 +6,16 @@ Thanks for opening this project in VS Code. This guide is your starting point.
 
 **Vita** is the cloud workspace for **Team 4201 — Vitruvian Bots**. Use it to explore our code, try ideas, and work in the browser without installing tools on your own computer.
 
+## Go to the Index
+
+The **[Index](docs/Index.md)** is the main navigation page for this workspace. Open it any time using one of these methods (no extension required):
+
+| Method | Action |
+|--------|--------|
+| **Click** | [Open Index](docs/Index.md) (works in this Markdown preview) |
+| **Keyboard** | `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Shift+I` (Mac) |
+| **Quick Open** | `Ctrl+P` / `Cmd+P`, then type `Index` and press Enter |
+
 ## Two ways to work
 
 | Mode | How | Can you save changes? |
@@ -14,23 +24,6 @@ Thanks for opening this project in VS Code. This guide is your starting point.
 | **Your copy** | Click **Link GitHub account** on the homepage | Yes — work on a fork in your own GitHub account |
 
 If you are in a **read-only** session, you can browse and experiment, but you cannot push changes to the team repository. To keep your work, link GitHub and use your fork.
-
-## Install Vita commands (one click)
-
-Palette commands like **Vita: Return to Index** come from a small extension in this repo. Codespaces usually install it automatically; if that command is missing:
-
-1. Open this file in **Markdown preview** (it should already be in preview).
-2. Click **Install Vita extension** below — this runs the install in the background.
-
-   <a href="command:workbench.action.tasks.runTask?%5B%22vita-install-extension%22%5D"><strong>Install Vita extension</strong></a>
-
-3. When the terminal reports success, press `Ctrl+Shift+P` / `Cmd+Shift+P` and run **Developer: Reload Window**.
-
-You can run the same install anytime via **Terminal → Run Task… → vita-install-extension**, or with:
-
-```bash
-code --install-extension .vscode/vita-extension --force
-```
 
 ## Quick start
 
@@ -42,7 +35,6 @@ code --install-extension .vscode/vita-extension --force
 ## Useful VS Code tips
 
 - **Command Palette** — `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (Mac) to run commands.
-- **Return to Index** — Run **Vita: Return to Index** from the palette (opens [docs/Index.md](docs/Index.md) in preview).
 - **Terminal** — `` Ctrl+` `` to open an integrated terminal.
 - **Problems** — View errors and warnings in the bottom panel.
 

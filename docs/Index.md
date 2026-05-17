@@ -10,15 +10,13 @@ Use this page as your home base in the workspace.
 | Project homepage | [4201vitruvianbots.github.io/Vita](https://4201vitruvianbots.github.io/Vita/) |
 | Source repository | [github.com/4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita) |
 
-## Navigation
+## Return here anytime
 
-Press **`Ctrl+Shift+P`** (Windows/Linux) or **`Cmd+Shift+P`** (Mac), then run:
-
-**Vita: Return to Index**
-
-…to return to this page anytime.
-
-If that command is missing, open [WELCOME.md](../WELCOME.md) and use the **Install Vita extension** link.
+| Method | Action |
+|--------|--------|
+| **Click** | [Open Index](Index.md) (from any Markdown preview) |
+| **Keyboard** | `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Shift+I` (Mac) |
+| **Quick Open** | `Ctrl+P` / `Cmd+P`, then type `Index` |
 
 ## What’s in this repository
 

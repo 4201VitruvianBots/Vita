@@ -1,7 +1,6 @@
 {
   "name": "Vita",
   "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
-  "postAttachCommand": "code --install-extension ${localWorkspaceFolder}/.vscode/vita-extension --force",
   "customizations": {
     "vscode": {
       "settings": {
