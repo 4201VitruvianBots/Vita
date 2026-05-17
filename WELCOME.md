@@ -25,6 +25,7 @@ If you are in a **read-only** session, you can browse and experiment, but you ca
 ## Useful VS Code tips
 
 - **Command Palette** — `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (Mac) to run commands.
+- **Return to Index** — Run **Vita: Return to Index** from the palette to open [docs/Index.md](docs/Index.md).
 - **Terminal** — `` Ctrl+` `` to open an integrated terminal.
 - **Problems** — View errors and warnings in the bottom panel.
 

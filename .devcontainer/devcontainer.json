@@ -1,13 +1,15 @@
 {
   "name": "Vita",
   "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "postAttachCommand": "code --install-extension ${localWorkspaceFolder}/.vscode/vita-extension --force",
   "customizations": {
     "vscode": {
       "settings": {
         "workbench.startupEditor": "none",
         "markdown.preview.breaks": true,
         "workbench.editorAssociations": {
-          "WELCOME.md": "vscode.markdown.preview.editor"
+          "WELCOME.md": "vscode.markdown.preview.editor",
+          "docs/Index.md": "vscode.markdown.preview.editor"
         }
       }
     },
