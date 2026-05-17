@@ -12,7 +12,7 @@
 
   const urls = {
     repo: `https://github.com/${slug}`,
-    readOnlyEditor: `https://vscode.dev/github/${slug}/tree/${branch}`,
+    readOnlyEditor: `https://vscode.dev/github/${slug}/blob/${branch}/Welcome.md`,
     readOnlyCodespace: buildReadOnlyCodespaceUrl(),
   };
 

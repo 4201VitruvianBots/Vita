@@ -1,0 +1,14 @@
+{
+  "name": "Vita",
+  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "workbench.startupEditor": "none"
+      }
+    },
+    "codespaces": {
+      "openFiles": ["Welcome.md"]
+    }
+  }
+}
