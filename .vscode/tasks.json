@@ -5,7 +5,7 @@
       "label": "Vita: Open Index",
       "type": "shell",
       "command": "code",
-      "args": ["${workspaceFolder}/docs/Index.md"],
+      "args": ["-r", "${workspaceFolder}/docs/Index.md"],
       "options": {
         "cwd": "${workspaceFolder}"
       },
