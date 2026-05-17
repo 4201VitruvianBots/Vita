@@ -12,44 +12,74 @@
 
   const urls = {
     repo: `https://github.com/${slug}`,
+    readOnlyCodespace: buildReadOnlyCodespaceUrl(),
+    vscodeDev: `https://vscode.dev/github/${slug}/tree/${branch}`,
   };
 
   const els = {
     status: document.getElementById("status"),
     linkGithub: document.getElementById("link-github"),
     startWorkspace: document.getElementById("start-workspace"),
+    openMyCodespace: document.getElementById("open-my-codespace"),
     disconnect: document.getElementById("disconnect"),
     userPanel: document.getElementById("user-panel"),
     userAvatar: document.getElementById("user-avatar"),
     userLogin: document.getElementById("user-login"),
-    authSection: document.getElementById("auth-section"),
-    workspaceSection: document.getElementById("workspace-section"),
     repoLink: document.getElementById("repo-link"),
+    syncDialog: document.getElementById("sync-dialog"),
+    syncDialogMessage: document.getElementById("sync-dialog-message"),
   };
 
   els.repoLink?.setAttribute("href", urls.repo);
-
+  els.startWorkspace?.addEventListener("click", () => startReadOnlyCodespace());
   els.linkGithub?.addEventListener("click", () => linkGitHub());
-  els.startWorkspace?.addEventListener("click", () => provisionWorkspace());
+  els.openMyCodespace?.addEventListener("click", () => openMyForkCodespace());
   els.disconnect?.addEventListener("click", () => disconnect());
+
+  els.syncDialog?.addEventListener("close", () => {
+    if (els.syncDialog.returnValue === "confirm") {
+      syncUserFork();
+    } else if (els.syncDialog.returnValue === "cancel") {
+      setStatus("Your copy is behind the team repository. You can update later from this page.", "");
+    }
+  });
 
   init();
 
-  async function init() {
-    if (!apiBase) {
-      setStatus(
-        "Set apiBase in js/config.js to your deployed API URL, then reload.",
-        "error"
-      );
-      els.linkGithub?.setAttribute("disabled", "true");
-      return;
-    }
+  function buildReadOnlyCodespaceUrl() {
+    const url = new URL("https://github.com/codespaces/new");
+    url.searchParams.set("hide_repo_select", "true");
+    url.searchParams.set("repo", slug);
+    url.searchParams.set("ref", branch);
+    return url.toString();
+  }
 
+  function resolveApiBase(configured) {
+    const meta = document.querySelector('meta[name="vita-api-base"]')?.content?.trim();
+    const base = configured || meta || null;
+    if (base) return base.replace(/\/$/, "");
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      return window.location.origin;
+    }
+    return null;
+  }
+
+  async function init() {
     const params = new URLSearchParams(window.location.search);
     const authError = params.get("auth_error");
+
     if (authError) {
       setStatus(`GitHub sign-in failed: ${decodeURIComponent(authError)}`, "error");
       cleanAuthParams();
+    } else if (!apiBase) {
+      setStatus(
+        "Start Codespace works now. To link GitHub, set apiBase in js/config.js (or the vita-api-base meta tag) to your deployed API URL.",
+        ""
+      );
+    }
+
+    if (!apiBase) {
+      return;
     }
 
     const user = await fetchMe();
@@ -57,26 +87,18 @@
       showAuthenticated(user);
       if (params.get("auth") === "linked") {
         cleanAuthParams();
-        await provisionWorkspace();
+        await handleRepoAfterLink();
       }
     } else {
       showUnauthenticated();
     }
   }
 
-  function resolveApiBase(configured) {
-    if (configured) return configured.replace(/\/$/, "");
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-      return window.location.origin;
-    }
-    return null;
-  }
-
   function cleanAuthParams() {
     const url = new URL(window.location.href);
     url.searchParams.delete("auth");
     url.searchParams.delete("auth_error");
-    window.history.replaceState({}, "", url.pathname + url.hash);
+    window.history.replaceState({}, "", url.pathname + url.search + url.hash);
   }
 
   function setStatus(message, state) {
@@ -90,28 +112,55 @@
     button?.setAttribute("aria-busy", busy ? "true" : "false");
   }
 
-  function openUrl(url) {
-    window.location.href = url;
+  function openInNewTab(url) {
+    const opened = window.open(url, "_blank", "noopener,noreferrer");
+    if (!opened) {
+      window.location.href = url;
+    }
   }
 
-  function showUnauthenticated() {
-    els.authSection?.removeAttribute("hidden");
-    els.workspaceSection?.setAttribute("hidden", "");
-    els.userPanel?.setAttribute("hidden", "");
+  function startReadOnlyCodespace() {
     setStatus(
-      "Link your GitHub account to fork this project into your account and open a Codespace.",
-      ""
+      "Opening a read-only Codespace on the team repository. You cannot push changes to the upstream repo.",
+      "loading"
+    );
+    openInNewTab(urls.readOnlyCodespace);
+    setStatus(
+      "GitHub should open in a new tab to create a read-only Codespace. Sign in if prompted. No Codespaces? Use the read-only editor at vscode.dev/github/" +
+        slug +
+        "/tree/" +
+        branch,
+      "ready"
     );
   }
 
+  function linkGitHub() {
+    if (!apiBase) {
+      setStatus(
+        "GitHub linking requires the API. Set apiBase in js/config.js to your Vercel deployment URL, then reload.",
+        "error"
+      );
+      return;
+    }
+
+    const loginUrl = new URL(`${apiBase}/api/auth/login`);
+    loginUrl.searchParams.set("return_to", siteReturnTo);
+    window.location.href = loginUrl.toString();
+  }
+
+  function showUnauthenticated() {
+    els.userPanel?.setAttribute("hidden", "");
+    els.openMyCodespace?.setAttribute("hidden", "");
+    els.linkGithub?.removeAttribute("hidden");
+  }
+
   function showAuthenticated(user) {
-    els.authSection?.setAttribute("hidden", "");
-    els.workspaceSection?.removeAttribute("hidden");
     els.userPanel?.removeAttribute("hidden");
+    els.openMyCodespace?.removeAttribute("hidden");
+    els.linkGithub?.setAttribute("hidden", "");
     if (els.userAvatar) els.userAvatar.src = user.avatarUrl;
     if (els.userAvatar) els.userAvatar.alt = `${user.login} avatar`;
     if (els.userLogin) els.userLogin.textContent = user.login;
-    setStatus("GitHub account linked. Start your workspace when you are ready.", "ready");
   }
 
   async function fetchMe() {
@@ -126,37 +175,91 @@
     }
   }
 
-  function linkGitHub() {
-    const loginUrl = new URL(`${apiBase}/api/auth/login`);
-    loginUrl.searchParams.set("return_to", siteReturnTo);
-    openUrl(loginUrl.toString());
+  async function handleRepoAfterLink() {
+    setStatus("Checking your GitHub repository…", "loading");
+
+    try {
+      const res = await apiFetch("/api/repo/status");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not check repository status");
+
+      if (!data.exists) {
+        setStatus("Copying the repository to your GitHub account…", "loading");
+        const forkRes = await apiFetch("/api/repo/fork", { method: "POST" });
+        const forkData = await forkRes.json();
+        if (!forkRes.ok) throw new Error(forkData.error || "Could not create fork");
+        setStatus(
+          `Repository copied to your account. You can open it in a Codespace when ready.`,
+          "ready"
+        );
+        return;
+      }
+
+      if (!data.isFork) {
+        setStatus(
+          `You already have a repository named "${cfg.repo}" that is not a fork of ${slug}. Rename or remove it, then link again.`,
+          "error"
+        );
+        return;
+      }
+
+      if (data.upToDate) {
+        setStatus("Your copy is up to date with the team repository.", "ready");
+        return;
+      }
+
+      if (els.syncDialogMessage) {
+        els.syncDialogMessage.textContent =
+          "Your fork is behind the team repository. Do you want to update your copy with the latest changes?";
+      }
+      els.syncDialog?.showModal();
+    } catch (err) {
+      console.error(err);
+      setStatus(err.message || "Something went wrong while checking your repository.", "error");
+    }
   }
 
-  async function provisionWorkspace() {
-    setBusy(els.startWorkspace, true);
-    setStatus("Forking the repository to your GitHub account…", "loading");
+  async function syncUserFork() {
+    setStatus("Updating your copy from the team repository…", "loading");
+
+    try {
+      const res = await apiFetch("/api/repo/sync", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not update repository");
+
+      setStatus("Your copy is now up to date with the team repository.", "ready");
+    } catch (err) {
+      console.error(err);
+      setStatus(err.message || "Could not update your repository.", "error");
+    }
+  }
+
+  async function openMyForkCodespace() {
+    if (!apiBase) return;
+
+    setBusy(els.openMyCodespace, true);
+    setStatus("Starting a Codespace on your fork…", "loading");
 
     try {
       const res = await apiFetch("/api/workspace", { method: "POST" });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not create Codespace");
 
-      if (!res.ok) {
-        throw new Error(data.error || "Could not create workspace");
-      }
-
-      setStatus("Codespace is starting. Opening VS Code in your browser…", "ready");
+      setStatus("Opening your Codespace…", "ready");
       if (data.codespaceUrl) {
-        window.open(data.codespaceUrl, "_blank", "noopener,noreferrer");
+        openInNewTab(data.codespaceUrl);
       }
     } catch (err) {
       console.error(err);
-      setStatus(err.message || "Something went wrong while creating your workspace.", "error");
+      setStatus(err.message || "Could not open your Codespace.", "error");
     } finally {
-      setBusy(els.startWorkspace, false);
+      setBusy(els.openMyCodespace, false);
     }
   }
 
   async function disconnect() {
+    if (!apiBase) return;
+
     setBusy(els.disconnect, true);
     try {
       await apiFetch("/api/auth/logout", { method: "POST" });

@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Vita — link GitHub, fork the project, and open a VS Code Codespace in your browser."
+      content="Vita — preview the project in a read-only Codespace, or link GitHub to copy the repo to your account."
     />
+    <!-- Optional: set your Vercel API URL here (overrides js/config.js when non-empty) -->
+    <meta name="vita-api-base" content="" />
     <title>Vita — VS Code Codespaces</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -19,8 +21,8 @@
         <p class="badge">Team 4201 · Vitruvian Bots</p>
         <h1>Vita</h1>
         <p class="lead">
-          Link your GitHub account to get your own copy of this project and launch a VS Code
-          Codespace—no local setup required.
+          Try the project in a temporary read-only Codespace, or link GitHub to keep your own
+          copy that stays in sync with the team repository.
         </p>
       </header>
 
@@ -33,8 +35,16 @@
           <button type="button" class="btn btn-ghost" id="disconnect">Disconnect</button>
         </div>
 
-        <div id="auth-section" class="actions">
-          <button type="button" class="btn btn-primary" id="link-github">
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="start-workspace" aria-busy="false">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.85c0 .25.25.5.5.5.25 0 .5-.25.5-.5V6c0-1.1 3.6-2.5 5.5-2.5s5.5 1.4 5.5 2.5v11.5c0 .25.25.5.5.5s.5-.25.5-.5V6c1.55-1.1 3.55-1.5 5.5-1.5s5.5 1.4 5.5 2.5V19.5c0 .25.25.5.5.5s.5-.25.5-.5V6c-1.45-1.1-3.55-1.5-5.5-1.5z"
+              />
+            </svg>
+            Start Codespace
+          </button>
+          <button type="button" class="btn btn-secondary" id="link-github">
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
                 fill-rule="evenodd"
@@ -44,21 +54,13 @@
             </svg>
             Link GitHub account
           </button>
-        </div>
-
-        <div id="workspace-section" class="actions" hidden>
-          <button type="button" class="btn btn-primary" id="start-workspace" aria-busy="false">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M17.5 4.5c-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.85c0 .25.25.5.5.5.25 0 .5-.25.5-.5V6c0-1.1 3.6-2.5 5.5-2.5s5.5 1.4 5.5 2.5v11.5c0 .25.25.5.5.5s.5-.25.5-.5V6c1.55-1.1 3.55-1.5 5.5-1.5s5.5 1.4 5.5 2.5V19.5c0 .25.25.5.5.5s.5-.25.5-.5V6c-1.45-1.1-3.55-1.5-5.5-1.5z"
-              />
-            </svg>
-            Start Codespace
+          <button type="button" class="btn btn-secondary" id="open-my-codespace" hidden>
+            Open my fork in Codespace
           </button>
         </div>
 
         <p class="status" id="status" role="status" aria-live="polite">
-          Link GitHub to fork this repository and launch VS Code in the cloud.
+          Start Codespace opens a read-only preview. Link GitHub to copy the repo to your account.
         </p>
       </section>
 
@@ -73,6 +75,19 @@
         </p>
       </footer>
     </main>
+
+    <dialog id="sync-dialog" class="sync-dialog">
+      <form method="dialog" class="sync-dialog-form">
+        <h3>Update your copy?</h3>
+        <p id="sync-dialog-message">
+          Your fork is behind the team repository. Do you want to pull in the latest changes?
+        </p>
+        <div class="sync-dialog-actions">
+          <button type="submit" class="btn btn-secondary" value="cancel">Not now</button>
+          <button type="submit" class="btn btn-primary" value="confirm">Update my copy</button>
+        </div>
+      </form>
+    </dialog>
 
     <script src="js/config.js"></script>
     <script src="js/app.js"></script>

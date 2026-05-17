@@ -57,9 +57,11 @@ Repo **Settings → Pages → Source:** GitHub Actions (workflow in [`.github/wo
 
 ## User flow
 
-1. **Link GitHub account** — OAuth with `public_repo` and `codespace` scopes.
-2. **Fork** — API forks `4201VitruvianBots/Vita` to the user's account (or reuses an existing fork).
-3. **Codespace** — API creates a Codespace on the user's fork and opens `web_url` in the browser.
+1. **Start Codespace** — Opens a read-only [VS Code for the Web](https://vscode.dev) session on the team repository (no API required).
+2. **Link GitHub account** — OAuth with `public_repo` and `codespace` scopes.
+3. **Fork** — If the user does not have a fork, the API creates one automatically.
+4. **Sync** — If their fork exists but is behind upstream, they are asked whether to update it.
+5. **Open my fork** — After linking, users can start a writable Codespace on their own fork.
 
 ## Local development
 
