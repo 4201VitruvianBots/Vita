@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "vita-open-index",
+      "type": "shell",
+      "command": "code ${workspaceFolder}/docs/Index.md",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared",
+        "close": true
+      }
+    }
+  ]
+}
