@@ -14,9 +14,11 @@ Use this page as your home base in the workspace.
 
 | Method | Action |
 |--------|--------|
-| **Click** | [Open Index](Index.md) (from any Markdown preview) |
-| **Keyboard** | `Ctrl+Shift+~` (Windows/Linux) or `Cmd+Shift+~` (Mac) |
+| **Click** | [Open Index](Index.md) (from any Markdown preview — most reliable) |
+| **Keyboard** | `Ctrl+Shift+~` / `Cmd+Shift+~` (installed to your Codespace user keybindings on attach) |
 | **Quick Open** | `Ctrl+P` / `Cmd+P`, then type `Index` |
+
+See [.vscode/KEYBINDINGS.md](../.vscode/KEYBINDINGS.md) if the keyboard shortcut does not work.
 
 ## What’s in this repository
 

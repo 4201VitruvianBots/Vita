@@ -8,13 +8,15 @@ Thanks for opening this project in VS Code. This guide is your starting point.
 
 ## Go to the Index
 
-The **[Index](docs/Index.md)** is the main navigation page for this workspace. Open it any time using one of these methods (no extension required):
+The **[Index](docs/Index.md)** is the main navigation page for this workspace. Open it any time using one of these methods:
 
 | Method | Action |
 |--------|--------|
-| **Click** | [Open Index](docs/Index.md) (works in this Markdown preview) |
-| **Keyboard** | `Ctrl+Shift+~` (Windows/Linux) or `Cmd+Shift+~` (Mac) |
+| **Click** | [Open Index](docs/Index.md) (works in this Markdown preview — most reliable) |
+| **Keyboard** | `Ctrl+Shift+~` (Windows/Linux) or `Cmd+Shift+~` (Mac) — installed into your Codespace user keybindings on connect |
 | **Quick Open** | `Ctrl+P` / `Cmd+P`, then type `Index` and press Enter |
+
+> **Why doesn’t `.vscode/keybindings.json` work?** VS Code does not load keybindings from the workspace folder (there is no setting to enable that). This repo runs `scripts/install-keybindings.js` when your Codespace attaches to add the shortcut to your **user** keybindings instead. If the shortcut fails, click inside the editor (so the browser doesn’t capture it) or use **Developer: Reload Window** once after connect.
 
 ## Two ways to work
 

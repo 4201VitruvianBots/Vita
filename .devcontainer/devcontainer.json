@@ -1,6 +1,7 @@
 {
   "name": "Vita",
   "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  "postAttachCommand": "node ${localWorkspaceFolder}/scripts/install-keybindings.js",
   "customizations": {
     "vscode": {
       "settings": {
