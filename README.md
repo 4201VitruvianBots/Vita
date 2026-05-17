@@ -1,6 +1,6 @@
 # Vita
 
-Homepage for [4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita). New users opening a Codespace should start with **[Welcome.md](Welcome.md)**. Users link their GitHub account, fork the repository into their account, and launch a VS Code Codespace on their fork.
+Homepage for [4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita). New users opening a Codespace should start with **[WELCOME.md](WELCOME.md)** (opens as a formatted preview). Users link their GitHub account, fork the repository into their account, and launch a VS Code Codespace on their fork.
 
 ## Architecture
 

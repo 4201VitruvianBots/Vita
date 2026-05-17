@@ -4,11 +4,15 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "workbench.startupEditor": "none"
+        "workbench.startupEditor": "none",
+        "markdown.preview.breaks": true,
+        "workbench.editorAssociations": {
+          "WELCOME.md": "vscode.markdown.preview.editor"
+        }
       }
     },
     "codespaces": {
-      "openFiles": ["Welcome.md"]
+      "openFiles": ["WELCOME.md"]
     }
   }
 }

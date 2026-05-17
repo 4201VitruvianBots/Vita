@@ -36,4 +36,4 @@ If you are in a **read-only** session, you can browse and experiment, but you ca
 
 ---
 
-*You can close this tab anytime and return via the file explorer — **Welcome.md** lives at the root of the repository.*
+*You can close this tab anytime and return via the file explorer — **WELCOME.md** lives at the root of the repository.*

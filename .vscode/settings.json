@@ -1,4 +1,7 @@
 {
   "workbench.startupEditor": "none",
-  "markdown.preview.breaks": true
+  "markdown.preview.breaks": true,
+  "workbench.editorAssociations": {
+    "WELCOME.md": "vscode.markdown.preview.editor"
+  }
 }
