@@ -18,6 +18,8 @@ Press **`Ctrl+Shift+P`** (Windows/Linux) or **`Cmd+Shift+P`** (Mac), then run:
 
 …to return to this page anytime.
 
+If that command is missing, open [WELCOME.md](../WELCOME.md) and use the **Install Vita extension** link.
+
 ## What’s in this repository
 
 - **`WELCOME.md`** — Introduction and onboarding

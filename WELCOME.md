@@ -15,6 +15,20 @@ Thanks for opening this project in VS Code. This guide is your starting point.
 
 If you are in a **read-only** session, you can browse and experiment, but you cannot push changes to the team repository. To keep your work, link GitHub and use your fork.
 
+## Install Vita commands (one click)
+
+Palette commands like **Vita: Return to Index** come from a small extension in this repo. Codespaces usually install it automatically; if that command is missing:
+
+1. Open this file in **Markdown preview** (it should already be in preview).
+2. Click **[Install Vita extension](command:workbench.action.tasks.runTask?["Vita: Install Extension"])** — this runs the install in the background.
+3. When the terminal reports success, press `Ctrl+Shift+P` / `Cmd+Shift+P` and run **Developer: Reload Window**.
+
+You can run the same install anytime via **Terminal → Run Task… → Vita: Install Extension**, or with:
+
+```bash
+code --install-extension .vscode/vita-extension --force
+```
+
 ## Quick start
 
 1. **Look around** — Open folders in the Explorer (left sidebar) to see how the project is organized.

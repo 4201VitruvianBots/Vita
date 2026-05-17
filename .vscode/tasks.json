@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Vita: Install Extension",
+      "type": "shell",
+      "command": "code --install-extension \"${workspaceFolder}/.vscode/vita-extension\" --force",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": false,
+        "close": true
+      }
+    }
+  ]
+}
