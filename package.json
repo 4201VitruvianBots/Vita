@@ -1,0 +1,14 @@
+{
+  "name": "vita",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev --listen 3000"
+  },
+  "devDependencies": {
+    "vercel": "^41.0.0"
+  }
+}

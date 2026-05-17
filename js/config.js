@@ -4,9 +4,9 @@ window.VITA_CONFIG = {
   branch: "main",
 
   /**
-   * Optional: base URL for a self-hosted OpenVSCode Server / orchestration API.
-   * When set, "Launch VS Code Server" POSTs to `${serverApi}/session` and opens the returned workspace URL.
-   * Example: "https://vita-editor.example.com/api"
+   * Vercel (or other) deployment URL for the OAuth API — no trailing slash.
+   * Example: "https://vita-api.vercel.app"
+   * Leave null for local dev with `vercel dev` (uses same origin).
    */
-  serverApi: null,
+  apiBase: null,
 };

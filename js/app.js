@@ -7,27 +7,77 @@
 
   const slug = `${cfg.owner}/${cfg.repo}`;
   const branch = cfg.branch || "main";
+  const apiBase = resolveApiBase(cfg.apiBase);
+  const siteReturnTo = window.location.href.split("?")[0].split("#")[0];
 
   const urls = {
-    vscodeDev: `https://vscode.dev/github/${slug}/tree/${branch}`,
-    githubDev: `https://github.dev/${slug}/blob/${branch}/`,
-    codespaces: `https://github.com/codespaces/new?hide_repo_select=true&ref=${encodeURIComponent(branch)}&repo=${encodeURIComponent(slug)}`,
     repo: `https://github.com/${slug}`,
   };
 
   const els = {
     status: document.getElementById("status"),
-    launch: document.getElementById("launch"),
-    quickOpen: document.getElementById("quick-open"),
-    codespace: document.getElementById("codespace"),
+    linkGithub: document.getElementById("link-github"),
+    startWorkspace: document.getElementById("start-workspace"),
+    disconnect: document.getElementById("disconnect"),
+    userPanel: document.getElementById("user-panel"),
+    userAvatar: document.getElementById("user-avatar"),
+    userLogin: document.getElementById("user-login"),
+    authSection: document.getElementById("auth-section"),
+    workspaceSection: document.getElementById("workspace-section"),
     repoLink: document.getElementById("repo-link"),
   };
 
-  els.quickOpen?.addEventListener("click", () => openUrl(urls.vscodeDev));
-  els.codespace?.addEventListener("click", () => openUrl(urls.codespaces));
   els.repoLink?.setAttribute("href", urls.repo);
 
-  els.launch?.addEventListener("click", () => startSession());
+  els.linkGithub?.addEventListener("click", () => linkGitHub());
+  els.startWorkspace?.addEventListener("click", () => provisionWorkspace());
+  els.disconnect?.addEventListener("click", () => disconnect());
+
+  init();
+
+  async function init() {
+    if (!apiBase) {
+      setStatus(
+        "Set apiBase in js/config.js to your deployed API URL, then reload.",
+        "error"
+      );
+      els.linkGithub?.setAttribute("disabled", "true");
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const authError = params.get("auth_error");
+    if (authError) {
+      setStatus(`GitHub sign-in failed: ${decodeURIComponent(authError)}`, "error");
+      cleanAuthParams();
+    }
+
+    const user = await fetchMe();
+    if (user) {
+      showAuthenticated(user);
+      if (params.get("auth") === "linked") {
+        cleanAuthParams();
+        await provisionWorkspace();
+      }
+    } else {
+      showUnauthenticated();
+    }
+  }
+
+  function resolveApiBase(configured) {
+    if (configured) return configured.replace(/\/$/, "");
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      return window.location.origin;
+    }
+    return null;
+  }
+
+  function cleanAuthParams() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("auth");
+    url.searchParams.delete("auth_error");
+    window.history.replaceState({}, "", url.pathname + url.hash);
+  }
 
   function setStatus(message, state) {
     if (!els.status) return;
@@ -35,63 +85,98 @@
     els.status.dataset.state = state || "";
   }
 
-  function setBusy(busy) {
-    els.launch?.toggleAttribute("disabled", busy);
-    els.launch?.setAttribute("aria-busy", busy ? "true" : "false");
+  function setBusy(button, busy) {
+    button?.toggleAttribute("disabled", busy);
+    button?.setAttribute("aria-busy", busy ? "true" : "false");
   }
 
   function openUrl(url) {
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.location.href = url;
   }
 
-  async function startSession() {
-    if (cfg.serverApi) {
-      await startRemoteSession(cfg.serverApi);
-      return;
-    }
-    setStatus("Opening VS Code in your browser…", "loading");
-    openUrl(urls.vscodeDev);
-    setStatus("VS Code should open in a new tab. Sign in to GitHub if prompted.", "ready");
+  function showUnauthenticated() {
+    els.authSection?.removeAttribute("hidden");
+    els.workspaceSection?.setAttribute("hidden", "");
+    els.userPanel?.setAttribute("hidden", "");
+    setStatus(
+      "Link your GitHub account to fork this project into your account and open a Codespace.",
+      ""
+    );
   }
 
-  async function startRemoteSession(apiBase) {
-    setBusy(true);
-    setStatus("Starting VS Code Server…", "loading");
+  function showAuthenticated(user) {
+    els.authSection?.setAttribute("hidden", "");
+    els.workspaceSection?.removeAttribute("hidden");
+    els.userPanel?.removeAttribute("hidden");
+    if (els.userAvatar) els.userAvatar.src = user.avatarUrl;
+    if (els.userAvatar) els.userAvatar.alt = `${user.login} avatar`;
+    if (els.userLogin) els.userLogin.textContent = user.login;
+    setStatus("GitHub account linked. Start your workspace when you are ready.", "ready");
+  }
 
+  async function fetchMe() {
     try {
-      const res = await fetch(`${apiBase.replace(/\/$/, "")}/session`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          repository: slug,
-          branch,
-        }),
-      });
-
-      if (!res.ok) {
-        throw new Error(`Server responded with ${res.status}`);
-      }
-
+      const res = await apiFetch("/api/auth/me");
+      if (!res.ok) return null;
       const data = await res.json();
-      if (!data?.url) {
-        throw new Error("No workspace URL returned");
-      }
-
-      const target = data.token
-        ? `${data.url}${data.url.includes("?") ? "&" : "?"}tkn=${encodeURIComponent(data.token)}`
-        : data.url;
-
-      setStatus("VS Code Server is ready. Opening workspace…", "ready");
-      openUrl(target);
+      return data.authenticated ? data : null;
     } catch (err) {
       console.error(err);
-      setStatus(
-        "Could not reach the VS Code Server API. Opening vscode.dev instead.",
-        "error"
-      );
-      openUrl(urls.vscodeDev);
-    } finally {
-      setBusy(false);
+      return null;
     }
+  }
+
+  function linkGitHub() {
+    const loginUrl = new URL(`${apiBase}/api/auth/login`);
+    loginUrl.searchParams.set("return_to", siteReturnTo);
+    openUrl(loginUrl.toString());
+  }
+
+  async function provisionWorkspace() {
+    setBusy(els.startWorkspace, true);
+    setStatus("Forking the repository to your GitHub account…", "loading");
+
+    try {
+      const res = await apiFetch("/api/workspace", { method: "POST" });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Could not create workspace");
+      }
+
+      setStatus("Codespace is starting. Opening VS Code in your browser…", "ready");
+      if (data.codespaceUrl) {
+        window.open(data.codespaceUrl, "_blank", "noopener,noreferrer");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus(err.message || "Something went wrong while creating your workspace.", "error");
+    } finally {
+      setBusy(els.startWorkspace, false);
+    }
+  }
+
+  async function disconnect() {
+    setBusy(els.disconnect, true);
+    try {
+      await apiFetch("/api/auth/logout", { method: "POST" });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setBusy(els.disconnect, false);
+      showUnauthenticated();
+      setStatus("Disconnected from GitHub.", "");
+    }
+  }
+
+  function apiFetch(path, options = {}) {
+    return fetch(`${apiBase}${path}`, {
+      ...options,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...(options.headers || {}),
+      },
+    });
   }
 })();

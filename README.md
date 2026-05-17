@@ -1,26 +1,79 @@
 # Vita
 
-Homepage for [4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita), deployed on GitHub Pages. The site launches a browser-based VS Code workspace for this repository.
+Homepage for [4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita). Users link their GitHub account, fork the repository into their account, and launch a VS Code Codespace on their fork.
 
-## Local preview
+## Architecture
 
-Open `index.html` in a browser, or serve the folder:
+| Part | Host | Role |
+|------|------|------|
+| Static site | GitHub Pages | Landing page and UI |
+| API (`/api/*`) | [Vercel](https://vercel.com) | GitHub OAuth, fork repo, create Codespace |
+
+GitHub Pages cannot run OAuth or call the GitHub API with secrets, so the API is deployed separately (same repo, Vercel project).
+
+## One-time setup
+
+### 1. GitHub OAuth App
+
+Create an app at [github.com/settings/developers](https://github.com/settings/developers):
+
+- **Homepage URL:** `https://4201vitruvianbots.github.io/Vita`
+- **Authorization callback URL:** `https://YOUR-API.vercel.app/api/auth/callback`
+
+### 2. Deploy API to Vercel
 
 ```bash
-npx --yes serve .
+npm install
+npx vercel link
+npx vercel env add GITHUB_CLIENT_ID
+npx vercel env add GITHUB_CLIENT_SECRET
+npx vercel env add SESSION_SECRET
+npx vercel env add SITE_URL
+npx vercel env add API_URL
+npx vercel deploy --prod
 ```
 
-## GitHub Pages
+Use these values:
 
-1. In the repo **Settings → Pages**, set **Source** to **GitHub Actions**.
-2. Push to `main`; the [Deploy GitHub Pages](.github/workflows/pages.yml) workflow publishes the site.
+| Variable | Example |
+|----------|---------|
+| `SITE_URL` | `https://4201vitruvianbots.github.io/Vita` |
+| `API_URL` | `https://your-project.vercel.app` |
+| `SESSION_SECRET` | Random 32+ char string |
+| `SOURCE_OWNER` | `4201VitruvianBots` (optional) |
+| `SOURCE_REPO` | `Vita` (optional) |
 
-## VS Code options
+### 3. Configure the static site
 
-| Button | What it does |
-|--------|----------------|
-| **Launch VS Code** | Opens [vscode.dev](https://vscode.dev) with this repo (default). |
-| **Quick edit** | Same as above, explicit shortcut. |
-| **Full environment** | Creates a [GitHub Codespace](https://github.com/features/codespaces) with a full VM. |
+Set `apiBase` in [`js/config.js`](js/config.js) to your Vercel URL (no trailing slash):
 
-GitHub Pages is static-only, so a dedicated [OpenVSCode Server](https://github.com/gitpod-io/openvscode-server) or [code-server](https://github.com/coder/code-server) instance must run elsewhere. To wire that up, set `serverApi` in [`js/config.js`](js/config.js) to your orchestration API base URL; the homepage will `POST /session` and open the returned workspace URL.
+```js
+apiBase: "https://your-project.vercel.app",
+```
+
+### 4. Enable GitHub Pages
+
+Repo **Settings → Pages → Source:** GitHub Actions (workflow in [`.github/workflows/pages.yml`](.github/workflows/pages.yml)).
+
+## User flow
+
+1. **Link GitHub account** — OAuth with `public_repo` and `codespace` scopes.
+2. **Fork** — API forks `4201VitruvianBots/Vita` to the user's account (or reuses an existing fork).
+3. **Codespace** — API creates a Codespace on the user's fork and opens `web_url` in the browser.
+
+## Local development
+
+```bash
+cp .env.example .env
+# Fill in OAuth credentials; set SITE_URL and API_URL to http://localhost:3000
+
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`. OAuth callback and API share the same origin locally.
+
+## Requirements
+
+- Users need [GitHub Codespaces](https://github.com/features/codespaces) enabled on their account/org.
+- The source repository must be forkable (public, or user has access).
