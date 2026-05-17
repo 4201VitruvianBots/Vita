@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Vita: Install Extension",
+      "label": "vita-install-extension",
       "type": "shell",
       "command": "code --install-extension \"${workspaceFolder}/.vscode/vita-extension\" --force",
       "problemMatcher": [],

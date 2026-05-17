@@ -2,6 +2,27 @@ const vscode = require("vscode");
 const path = require("path");
 
 const INDEX_RELATIVE_PATH = path.join("docs", "Index.md");
+const PREVIEW_EDITOR = "vscode.markdown.preview.editor";
+
+/**
+ * @param {vscode.Uri} uri
+ */
+async function openMarkdownPreview(uri) {
+  try {
+    await vscode.commands.executeCommand(
+      "vscode.openWith",
+      uri,
+      PREVIEW_EDITOR,
+      vscode.ViewColumn.Active
+    );
+    return;
+  } catch {
+    // Fallback when openWith is unavailable
+  }
+
+  await vscode.workspace.openTextDocument(uri);
+  await vscode.commands.executeCommand("markdown.showPreview", uri);
+}
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -24,12 +45,7 @@ function activate(context) {
         return;
       }
 
-      await vscode.commands.executeCommand(
-        "vscode.openWith",
-        indexUri,
-        "vscode.markdown.preview.editor",
-        { viewColumn: vscode.ViewColumn.Active }
-      );
+      await openMarkdownPreview(indexUri);
     })
   );
 }

@@ -20,10 +20,13 @@ If you are in a **read-only** session, you can browse and experiment, but you ca
 Palette commands like **Vita: Return to Index** come from a small extension in this repo. Codespaces usually install it automatically; if that command is missing:
 
 1. Open this file in **Markdown preview** (it should already be in preview).
-2. Click **[Install Vita extension](command:workbench.action.tasks.runTask?["Vita: Install Extension"])** — this runs the install in the background.
+2. Click **Install Vita extension** below — this runs the install in the background.
+
+   <a href="command:workbench.action.tasks.runTask?%5B%22vita-install-extension%22%5D"><strong>Install Vita extension</strong></a>
+
 3. When the terminal reports success, press `Ctrl+Shift+P` / `Cmd+Shift+P` and run **Developer: Reload Window**.
 
-You can run the same install anytime via **Terminal → Run Task… → Vita: Install Extension**, or with:
+You can run the same install anytime via **Terminal → Run Task… → vita-install-extension**, or with:
 
 ```bash
 code --install-extension .vscode/vita-extension --force
@@ -39,7 +42,7 @@ code --install-extension .vscode/vita-extension --force
 ## Useful VS Code tips
 
 - **Command Palette** — `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (Mac) to run commands.
-- **Return to Index** — Run **Vita: Return to Index** from the palette to open [docs/Index.md](docs/Index.md).
+- **Return to Index** — Run **Vita: Return to Index** from the palette (opens [docs/Index.md](docs/Index.md) in preview).
 - **Terminal** — `` Ctrl+` `` to open an integrated terminal.
 - **Problems** — View errors and warnings in the bottom panel.
 
