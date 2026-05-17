@@ -15,7 +15,8 @@ Use this page as your home base in the workspace.
 | Method | Action |
 |--------|--------|
 | **Click** | [Open Index](Index.md) in Markdown preview |
-| **Command Palette** | `Ctrl+Shift+P` → **Tasks: Run Task** → **vita-open-index** |
+| **Command Palette** | `Ctrl+Shift+P` → **Tasks: Run Task** → **Vita: Open Index** or **npm: vita:open-index** |
+| **Terminal** | `npm run vita:open-index` |
 | **Quick Open** | `Ctrl+P` / `Cmd+P` → type `Index` |
 | **Explorer** | **docs/Index.md** or root **Index.md** |
 

@@ -2,15 +2,20 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "vita-open-index",
+      "label": "Vita: Open Index",
       "type": "shell",
-      "command": "code ${workspaceFolder}/docs/Index.md",
+      "command": "code",
+      "args": ["${workspaceFolder}/docs/Index.md"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "problemMatcher": [],
       "presentation": {
-        "reveal": "never",
+        "reveal": "silent",
         "panel": "shared",
         "close": true
-      }
+      },
+      "detail": "Opens docs/Index.md in the editor."
     }
   ]
 }

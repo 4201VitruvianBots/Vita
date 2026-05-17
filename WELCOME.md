@@ -13,11 +13,14 @@ The **[Index](docs/Index.md)** is the main navigation page for this workspace. Y
 | Method | Action |
 |--------|--------|
 | **Click** | [Open Index](docs/Index.md) in this preview (most reliable) |
-| **Command Palette** | `Ctrl+Shift+P` → **Tasks: Run Task** → **vita-open-index** |
-| **One-click (preview)** | <a href="command:workbench.action.tasks.runTask?%5B%22vita-open-index%22%5D"><strong>Open Index via task</strong></a> |
+| **Command Palette** | `Ctrl+Shift+P` → **Tasks: Run Task** → **Vita: Open Index** (or **npm: vita:open-index**) |
+| **One-click (preview)** | <a href="command:workbench.action.tasks.runTask?%5B%22Vita%3A%20Open%20Index%22%5D"><strong>Open Index via task</strong></a> |
+| **Terminal** | `npm run vita:open-index` |
 | **Quick Open** | `Ctrl+P` / `Cmd+P` → type `Index` → Enter (root [Index.md](Index.md) or [docs/Index.md](docs/Index.md)) |
 | **Explorer** | Open **Index.md** at the repo root or **docs/Index.md** in the file tree |
 | **Keyboard** (optional) | `Ctrl+Shift+~` / `Cmd+Shift+~` if installed on Codespace attach — see [.vscode/KEYBINDINGS.md](.vscode/KEYBINDINGS.md) |
+
+**Tasks list empty?** Trust this workspace if prompted, confirm `.vscode/tasks.json` exists on your branch, then run **Developer: Reload Window**. You should see **Vita: Open Index** and **npm: vita:open-index** under **Tasks: Run Task**.
 
 ## Two ways to work
 

@@ -6,6 +6,8 @@
     "vscode": {
       "settings": {
         "workbench.startupEditor": "none",
+        "npm.autoDetect": "on",
+        "typescript.tsc.autoDetect": "off",
         "markdown.preview.breaks": true,
         "workbench.editorAssociations": {
           "WELCOME.md": "vscode.markdown.preview.editor",
