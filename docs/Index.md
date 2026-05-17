@@ -15,7 +15,7 @@ Use this page as your home base in the workspace.
 | Method | Action |
 |--------|--------|
 | **Click** | [Open Index](Index.md) (from any Markdown preview) |
-| **Keyboard** | `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Shift+I` (Mac) |
+| **Keyboard** | `Ctrl+Shift+~` (Windows/Linux) or `Cmd+Shift+~` (Mac) |
 | **Quick Open** | `Ctrl+P` / `Cmd+P`, then type `Index` |
 
 ## What’s in this repository

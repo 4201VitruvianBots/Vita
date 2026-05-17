@@ -13,7 +13,7 @@ The **[Index](docs/Index.md)** is the main navigation page for this workspace. O
 | Method | Action |
 |--------|--------|
 | **Click** | [Open Index](docs/Index.md) (works in this Markdown preview) |
-| **Keyboard** | `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Shift+I` (Mac) |
+| **Keyboard** | `Ctrl+Shift+~` (Windows/Linux) or `Cmd+Shift+~` (Mac) |
 | **Quick Open** | `Ctrl+P` / `Cmd+P`, then type `Index` and press Enter |
 
 ## Two ways to work
