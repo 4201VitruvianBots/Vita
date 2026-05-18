@@ -18,10 +18,6 @@
     ".env*": true,
     ".nojekyll": true,
     "LICENSE": true,
-    ".gitignore": true,
-    "docs/getting-started": true,
-    "docs/hardware": true,
-    "docs/software": true,
-    "docs/tools": true
+    ".gitignore": true
   }
 }
