@@ -2,6 +2,10 @@
 
 Use this page as your home base in the workspace.
 
+## Navigating
+- Use **Quick Open** (`Ctrl+P` / `Cmd+P`) and type in the name of the file to go to it.
+- Use **Find in Files** (`Ctrl+Shift+F` / `Cmd+Shift+F`) to search all files.
+
 ## Getting Started
 - [What are we trying to do?](getting-started/what-are-we-trying-to-do.md)
 
@@ -21,7 +25,7 @@ Use this page as your home base in the workspace.
 
 ## Tools
 Information on the Tools and Software we use
-- [VS Code](tools/VS_Code.md): Visual Studio Code - The main IDE used in FRC
+- [VS Code](tools/vs-code.md): Visual Studio Code - The main IDE used in FRC
 - [GitKraken (Git)](tools/gitkraken.md): Version Control Software
 - [Phoenix Tuner](tools/phoenix-tuner.md)
 - [REV Hardware Client](tools/rev-hardware-client.md)
@@ -37,9 +41,9 @@ Information on the Tools and Software we use
 
 ## Documentation and References
 - [WPILib](https://docs.wpilib.org/en/stable/index.html): Documentation on WPILib software
-- [CTRE](https://v6.docs.ctr-electronics.com/en/stable/): Documentation for using CTRE Motors, Sensors
+- [CTRE](https://v6.docs.ctr-electronics.com/en/stable): Documentation for using CTRE Motors, Sensors
 - [Limelight](https://docs.limelightvision.io/docs/docs-limelight/getting-started/summary): Documentation for using the Limelight Vision camera
 - [REVLib](https://docs.revrobotics.com/revlib): Documentation for using REV Motors, Sensors
-- [VividHosting](): Documentation for using the VividHosting robot radio
+- [VividHosting](https://frc-radio.vivid-hosting.net): Documentation for using the VividHosting robot radio
 
 ## Example Code

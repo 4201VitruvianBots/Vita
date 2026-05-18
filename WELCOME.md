@@ -8,7 +8,7 @@ Thanks for opening this project in VS Code. This guide is your starting point.
 
 ## Go to the Index
 
-The **[Index](docs/Index.md)** is the main navigation page for this workspace.
+The **[Index](docs/index.md)** is the main navigation page for this workspace.
 
 Use **Quick Open** (`Ctrl+P` / `Cmd+P`) and type `Index.md`, then press Enter.
 

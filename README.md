@@ -1,6 +1,6 @@
 # Vita
 
-Homepage for [4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita). New users opening a Codespace should start with **[WELCOME.md](WELCOME.md)**. Navigate to **[docs/Index.md](docs/Index.md)** via the link in WELCOME, `Ctrl+Shift+~` (auto-installed to user keybindings in Codespaces), or Quick Open (`Ctrl+P` → `Index`). Workspace `.vscode/keybindings.json` is not used by VS Code — see [.vscode/KEYBINDINGS.md](.vscode/KEYBINDINGS.md). Users link their GitHub account, fork the repository into their account, and launch a VS Code Codespace on their fork.
+Homepage for [4201VitruvianBots/Vita](https://github.com/4201VitruvianBots/Vita). New users opening a Codespace should start with **[WELCOME.md](WELCOME.md)**. Navigate to **[docs/Index.md](docs/index.md)** via the link in WELCOME, `Ctrl+Shift+~` (auto-installed to user keybindings in Codespaces), or Quick Open (`Ctrl+P` → `Index`). Workspace `.vscode/keybindings.json` is not used by VS Code — see [.vscode/KEYBINDINGS.md](.vscode/KEYBINDINGS.md). Users link their GitHub account, fork the repository into their account, and launch a VS Code Codespace on their fork.
 
 ## Architecture
 
