@@ -8,19 +8,9 @@ Thanks for opening this project in VS Code. This guide is your starting point.
 
 ## Go to the Index
 
-The **[Index](docs/Index.md)** is the main navigation page for this workspace. You do **not** need keybindings — pick any option below:
+The **[Index](docs/Index.md)** is the main navigation page for this workspace.
 
-| Method | Action |
-|--------|--------|
-| **Click** | [Open Index](docs/Index.md) in this preview (most reliable) |
-| **Command Palette** | `Ctrl+Shift+P` → **Tasks: Run Task** → **Vita: Open Index** (or **npm: vita:open-index**) |
-| **One-click (preview)** | <a href="command:workbench.action.tasks.runTask?%5B%22Vita%3A%20Open%20Index%22%5D"><strong>Open Index via task</strong></a> |
-| **Terminal** | `npm run vita:open-index` |
-| **Quick Open** | `Ctrl+P` / `Cmd+P` → type `Index` → Enter (root [Index.md](Index.md) or [docs/Index.md](docs/Index.md)) |
-| **Explorer** | Open **Index.md** at the repo root or **docs/Index.md** in the file tree |
-| **Keyboard** (optional) | `Ctrl+Shift+~` / `Cmd+Shift+~` if installed on Codespace attach — see [.vscode/KEYBINDINGS.md](.vscode/KEYBINDINGS.md) |
-
-**Tasks list empty?** Trust this workspace if prompted, confirm `.vscode/tasks.json` exists on your branch, then run **Developer: Reload Window**. You should see **Vita: Open Index** and **npm: vita:open-index** under **Tasks: Run Task**.
+Use **Quick Open** (`Ctrl+P` / `Cmd+P`) and type `Index.md`, then press Enter.
 
 ## Two ways to work
 
@@ -38,12 +28,6 @@ If you are in a **read-only** session, you can browse and experiment, but you ca
 3. **Make a change** (your fork only) — Edit a file, then use the Source Control view to commit and push.
 4. **Stay up to date** — When the team updates the main repo, use **Link GitHub** on the homepage and choose to sync your fork.
 
-## Useful VS Code tips
-
-- **Command Palette** — `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (Mac) to run commands.
-- **Terminal** — `` Ctrl+` `` to open an integrated terminal.
-- **Problems** — View errors and warnings in the bottom panel.
-
 ## Need help?
 
 - **Team questions** — Ask a mentor or student lead on Team 4201.
@@ -52,4 +36,4 @@ If you are in a **read-only** session, you can browse and experiment, but you ca
 
 ---
 
-*You can close this tab anytime and return via the file explorer — **WELCOME.md** lives at the root of the repository.*
+*You can close this tab anytime and return via Quick Open — press `Ctrl+P` and type `Index.md`.*

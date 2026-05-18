@@ -7,5 +7,21 @@
     "WELCOME.md": "vscode.markdown.preview.editor",
     "**/docs/Index.md": "vscode.markdown.preview.editor",
     "Index.md": "vscode.markdown.preview.editor"
+  },
+  "files.exclude": {
+    "**/*.js": true,
+    "**/*.json": true,
+    "**/*.html": true,
+    "**/*.css": true,
+    "**/*.yml": true,
+    "**/*.yaml": true,
+    ".env*": true,
+    ".nojekyll": true,
+    "LICENSE": true,
+    ".gitignore": true,
+    "docs/getting-started": true,
+    "docs/hardware": true,
+    "docs/software": true,
+    "docs/tools": true
   }
 }

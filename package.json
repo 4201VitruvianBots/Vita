@@ -6,8 +6,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "vercel dev --listen 3000",
-    "vita:open-index": "code -r docs/Index.md"
+    "dev": "vercel dev --listen 3000"
   },
   "devDependencies": {
     "vercel": "^41.0.0"

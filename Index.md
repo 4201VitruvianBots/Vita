@@ -2,4 +2,4 @@
 
 This file points to the main navigation page.
 
-**[Open the full Index →](docs/Index.md)**
+To open it, press `Ctrl+P` / `Cmd+P`, type `Index.md`, and press Enter.
